@@ -1,0 +1,20 @@
+#IMAGENES
+FROM node:18
+
+#WORKDIR
+RUN mkdir -p /home/app
+WORKDIR /home/app
+
+#SSH
+#RUN mkdir ~/.ssh
+#COPY id_rsa ~/.ssh
+#RUN eval "$(ssh-agent -s)"
+CMD ["eval", "$(ssh-agent -s)"]
+RUN ssh-add -K ~/.ssh/id_rsa
+
+
+#INICIO
+RUN npm i -g nodemon
+
+EXPOSE 3000
+CMD ["nodemon", "index.js"]
